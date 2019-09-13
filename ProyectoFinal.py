@@ -44,7 +44,7 @@ def myNetwork():
     h1 = net.addHost('h1', cls=Host, ip='191.4.199.1', defaultRoute=None)
     h3 = net.addHost('h3', cls=Host, ip='191.4.199.3', defaultRoute=None)
 
-  info( '*** Add links\n')
+    info( '*** Add links\n')
     net.addLink(h1, s1, cls=TCLink, bw=10, delay=5)
     net.addLink(s1, s2, cls=TCLink, bw=5, delay=10)
     net.addLink(s2, s7, cls=TCLink, bw=7, delay=20)
@@ -62,6 +62,7 @@ def myNetwork():
     net.addLink(s4, h4, cls=TCLink, bw=5, delay=54)
     net.addLink(s4, h5, cls=TCLink, bw=1, delay=2)
 
+
     info( '*** Starting network\n')
     net.build()
     info( '*** Starting controllers\n')
@@ -69,8 +70,16 @@ def myNetwork():
         controller.start()
 
     info( '*** Starting switches\n')
+    net.get('s4').start([c0])
+    net.get('s7').start([c0])
+    net.get('s1').start([c0])
+    net.get('s3').start([c0])
+    net.get('s8').start([c0])
+    net.get('s6').start([c0])
+    net.get('s2').start([c0])
+    net.get('s5').start([c0])
 
-
+    net.pingAll()
 
     info( '*** Post configure switches and hosts\n')
 
